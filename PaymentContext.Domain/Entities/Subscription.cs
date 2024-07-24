@@ -27,7 +27,7 @@ public class Subscription : Entity
 
     public void AddPayment(Payment payment)
     {
-        AddNotifications(new Contract<Subscription>().Requires()
+        AddNotifications(new Contract().Requires()
             .IsGreaterThan(DateTime.Now,
                 payment.PaidDate,
                 "Subscription.Payments",

@@ -11,7 +11,7 @@ public class Document : ValueObject
         Number = number;
         Type = type;
         
-        AddNotifications(new Contract<Document>().IsTrue(Validate(),"Document.Number","Documento inválido"));
+        AddNotifications(new Contract().IsTrue(Validate(),"Document.Number","Documento inválido"));
     }
 
     public string Number { get; set; }
@@ -23,7 +23,6 @@ public class Document : ValueObject
             return true;
         if (Type == EDocumentType.CPF && Number.Length == 11)
             return true;
-
         return false;
     }
 }

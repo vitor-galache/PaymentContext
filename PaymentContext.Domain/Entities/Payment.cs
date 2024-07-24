@@ -19,7 +19,7 @@ public abstract class Payment : Entity
         Address = address;
         Email = email;
         
-        AddNotifications(new Contract<Payment>().Requires()
+        AddNotifications(new Contract().Requires()
             .IsLowerOrEqualsThan(0,
                 Total,
                 "Payment.Total",

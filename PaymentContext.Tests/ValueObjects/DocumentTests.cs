@@ -10,7 +10,7 @@ public class DocumentTests
     public void ReturnErrorCnpjIsInvalid()
     {
         var doc = new Document("123",EDocumentType.CNPJ);
-        Assert.IsFalse(doc.IsValid);
+        Assert.IsTrue(doc.Invalid);
     }
     
     
@@ -18,14 +18,14 @@ public class DocumentTests
     public void ReturnSucessCnpjIsValid()
     {
         var doc = new Document("84175237000101",EDocumentType.CNPJ);
-        Assert.IsTrue(doc.IsValid);
+        Assert.IsTrue(doc.Valid);
     }
     
     [TestMethod]
     public void ReturnErrorCpfIsInvalid()
     {
         var doc = new Document("123",EDocumentType.CPF);
-        Assert.IsFalse(doc.IsValid);
+        Assert.IsTrue(doc.Invalid);
     }
     [TestMethod]
     [DataTestMethod]
@@ -35,6 +35,6 @@ public class DocumentTests
     public void ReturnSucessCpfIsValid(string cpf)
     {
         var doc = new Document(cpf,EDocumentType.CPF);
-        Assert.IsTrue(doc.IsValid);
+        Assert.IsTrue(doc.Valid);
     }
 }

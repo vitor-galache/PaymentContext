@@ -8,9 +8,9 @@ namespace PaymentContext.Tests.Entities;
 public class StudentsTests
 {
   private readonly Name _name;
+  private readonly Email _email;
   private readonly Document _document;
   private readonly Address _address;
-  private readonly Email _email;
   private readonly Student _student;
 
   public StudentsTests()
@@ -27,27 +27,28 @@ public class StudentsTests
   {
     var subscription = new Subscription(null);
     _student.AddSubscription(subscription);
-    Assert.IsFalse(_student.IsValid);
+    Assert.IsTrue(_student.Invalid);
   }
   
   [TestMethod]
   public void ReturnErrorSubscriptionActive()
   {
     var subscription = new Subscription(null);
-    var payment = new PayPalPayment(DateTime.Now, DateTime.Now.AddDays(5),10,10,_document,"WAYNE CORP",_address,"code_transaction",_email );
+    var payment = new PayPalPayment("12345678", DateTime.Now, DateTime.Now.AddDays(5), 10, 10, "WAYNE CORP", _document, _address, _email);
     subscription.AddPayment(payment);
     _student.AddSubscription(subscription);
     _student.AddSubscription(subscription);
-    Assert.IsFalse(_student.IsValid);
+    Assert.IsTrue(_student.Invalid);
   }
   
   [TestMethod]
   public void ReturnSuccessIfSubscriptionInactive()
   {
-    var subscription = new Subscription(null);
-    var payment = new PayPalPayment(DateTime.Now, DateTime.Now.AddDays(5),10,10,_document,"WAYNE CORP",_address,"code_transaction",_email );
+    var subscription = new Subscription(DateTime.Now.AddDays(5));
+    var payment = new PayPalPayment("12345678", DateTime.Now, DateTime.Now.AddDays(5), 10, 10, "WAYNE CORP", _document, _address, _email);
     subscription.AddPayment(payment);
     _student.AddSubscription(subscription);
-    Assert.IsTrue(_student.IsValid);
+    // Assert.IsTrue(_student.Subscriptions.Contains(subscription));
+    Assert.IsTrue(_student.Valid);
   }
 }

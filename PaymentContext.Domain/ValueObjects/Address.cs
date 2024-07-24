@@ -16,8 +16,8 @@ public class Address : ValueObject
         Country = country;
         ZipCode = zipCode;
         
-        AddNotifications(new Contract<Address>().Requires()
-            .IsLowerThan(Street, 3, "Address.Street", "A rua deve conter no minimo 3 caracteres"));
+        AddNotifications(new Contract().Requires()
+            .HasMinLen(Street, 3, "Address.Street", "A rua deve conter no minimo 3 caracteres"));
     }
 
     public string Street { get; private set; }
