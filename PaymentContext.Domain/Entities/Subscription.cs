@@ -1,9 +1,10 @@
 using Flunt.Validations;
+using PaymentContext.Shared.Commands;
 using PaymentContext.Shared.Entities;
 
 namespace PaymentContext.Domain.Entities;
 
-public class Subscription : Entity
+public class Subscription : Entity, ICommand
 {
     private IList<Payment> _payments;
     public Subscription(DateTime? expireDate)
@@ -45,5 +46,10 @@ public class Subscription : Entity
     {
         Active = false;
         LastUpdateDate = DateTime.Now;
+    }
+
+    public void Validate()
+    {
+        throw new NotImplementedException();
     }
 }
